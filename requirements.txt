@@ -1,0 +1,22 @@
+# Core LLM + LangChain functionality
+openai
+langchain
+
+# Vector store
+chromadb
+
+# PDF loader
+pymupdf  # used by LangChain's PyMuPDFLoader
+
+# Streamlit UI
+streamlit
+
+# Optional: for chunk size optimization and token counting
+tiktoken
+
+# If using YouTube transcript input (for future expansion)
+youtube-transcript-api
+
+# Optional: ensure your Python HTTP clients are up-to-date
+httpx
+requests
