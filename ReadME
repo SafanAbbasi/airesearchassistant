@@ -1,0 +1,19 @@
+ 
+ 
+LangChain app built on RAG (Retrieval-Augmented Generation) so only knows what has been explicity uplaoded 
+
+
+💬 When a user asks a question:
+a
+LangChain retrieves the top-matching chunk(s) from your content
+
+Only those chunks + the question are sent to GPT
+
+GPT does not access the internet or "general knowledge" unless you explicitly allow it (e.g., via an agent tool or plugin)
+
+🔒 Why That’s a Good Thing
+Feature	Result
+Privacy	Only your content is used
+Accuracy	GPT can’t hallucinate unrelated info
+Custom control	You decide what data is in scope
+No general web answers	Keeps it grounded in your documents
