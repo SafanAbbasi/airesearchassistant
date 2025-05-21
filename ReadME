@@ -1,19 +1,91 @@
- 
- 
-LangChain app built on RAG (Retrieval-Augmented Generation) so only knows what has been explicity uplaoded 
+# AI Research Assistant
 
+A Streamlit-powered app for uploading PDFs or YouTube video transcripts, embedding their content, and asking questions using Retrieval-Augmented Generation (RAG).
 
-💬 When a user asks a question:
-a
-LangChain retrieves the top-matching chunk(s) from your content
+**Branch Overview:**
+- `master`: Uses OpenAI models for embeddings and language generation.
+- `huggingface`: Uses Hugging Face models for embeddings and language generation (no external API required).
 
-Only those chunks + the question are sent to GPT
+---
 
-GPT does not access the internet or "general knowledge" unless you explicitly allow it (e.g., via an agent tool or plugin)
+## How It Works
 
-🔒 Why That’s a Good Thing
-Feature	Result
-Privacy	Only your content is used
-Accuracy	GPT can’t hallucinate unrelated info
-Custom control	You decide what data is in scope
-No general web answers	Keeps it grounded in your documents
+1. **Upload a PDF** or **paste a YouTube link**.
+2. The app splits the content into chunks and embeds them in a local Chroma vector database.
+3. When you ask a question, LangChain retrieves the most relevant chunks.
+4. Only those chunks and your question are sent to the language model (OpenAI or Hugging Face, depending on branch).
+5. The model generates an answer based solely on your content.
+
+*Note: The language model does not access the internet or general knowledge unless explicitly enabled.*
+
+---
+
+## Features
+
+- **PDF Upload:** Index and query your own PDFs.
+- **YouTube Transcript:** Index and query YouTube video transcripts.
+- **Question Answering:** Ask questions about your uploaded content.
+- **Local Vector Store:** Uses Chroma for fast retrieval.
+- **Flexible LLM Backend:** Choose OpenAI (main) or Hugging Face (huggingface branch).
+
+---
+
+## Setup
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/yourusername/airesearchassistant.git
+   cd airesearchassistant
+   ```
+
+2. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+3. **Set up Streamlit secrets (OpenAI branch only):**
+   - Create `.streamlit/secrets.toml` and add your OpenAI API key:
+     ```
+     [openai]
+     OPENAI_API_KEY = "sk-..."
+     ```
+
+4. **Run the app:**
+   ```sh
+   streamlit run app.py
+   ```
+
+---
+
+## File Structure
+
+- `app.py` — Main Streamlit app.
+- `ingest.py` — Document loading, chunking, and embedding.
+- `qa_chain.py` — Retrieval and question-answering logic.
+- `requirements.txt` — Python dependencies.
+- `data/` — Uploaded PDFs.
+- `chroma_db/` — Local vector database.
+
+---
+
+## Models Used
+
+- **OpenAI branch:** Uses OpenAI Embeddings and ChatGPT.
+- **Hugging Face branch:** Uses `sentence-transformers/all-MiniLM-L6-v2` for embeddings and `google/flan-t5-base` for LLM.
+
+---
+
+## Troubleshooting
+
+- If you encounter errors with the vector database, try deleting the `chroma_db/` directory and restarting the app.
+- Ensure all models are downloaded and compatible with your hardware (CPU/GPU).
+
+---
+
+## License
+
+MIT License
+
+---
+
+*Built with [Streamlit](https://streamlit.io/), [LangChain](https://python.langchain.com/), [ChromaDB](https://www.trychroma.com/), [OpenAI](https://openai.com/), and [Hugging Face Transformers](https://huggingface.co/docs/transformers/index).*
